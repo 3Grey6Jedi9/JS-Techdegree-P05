@@ -24,11 +24,13 @@ function getUsers() {
 
       const cards = document.querySelectorAll('.card');
 
-      cards.forEach(function(card) {
-      card.addEventListener('click', function() {
-      showModal(user);
+     cards.forEach(function(card) {
+     card.addEventListener('click', function(event) {
+
+    showModal(user);
   });
 });
+
 
     } else {
       console.log('Request failed. Status:', xhr.status);
@@ -45,7 +47,6 @@ function getUsers() {
 for (let i = 0; i < 12; i++) {
   getUsers();
 }
-
 
 
 
