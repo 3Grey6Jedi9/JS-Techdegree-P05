@@ -22,14 +22,12 @@ function getUsers() {
 
       gallery.insertAdjacentHTML("beforeend", HTML);
 
-      const cards = document.querySelectorAll('.card');
+      const card = document.querySelector('.card:last-child');
+      const userCopy = { ...user }; // Creating a copy of the user object
 
-     cards.forEach(function(card) {
-     card.addEventListener('click', function(event) {
-
-    showModal(user);
-  });
-});
+      card.addEventListener('click', function() {
+        showModal(userCopy);
+      });
 
 
     } else {
