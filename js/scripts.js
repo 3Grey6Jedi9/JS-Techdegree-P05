@@ -150,3 +150,21 @@ function showModal(user) {
 
 }
 
+cards.forEach(function(card){
+
+  card.addEventListener('click', function() {
+
+    //Getting the user data associated with the clicked card
+
+    let user = card.dataset.user;
+    if(user){
+
+      user = JSON.parse(user);
+      showModal(user); // Displaying the modal window with the user data
+    }
+
+
+  })
+
+
+})
