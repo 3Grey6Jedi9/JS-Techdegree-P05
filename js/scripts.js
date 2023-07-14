@@ -21,6 +21,15 @@ function getUsers() {
       </div>`;
 
       gallery.insertAdjacentHTML("beforeend", HTML);
+
+      const cards = document.querySelectorAll('.card');
+
+      cards.forEach(function(card) {
+      card.addEventListener('click', function() {
+      showModal(user);
+  });
+});
+
     } else {
       console.log('Request failed. Status:', xhr.status);
     }
@@ -40,7 +49,16 @@ for (let i = 0; i < 12; i++) {
 
 
 
-const cards = document.querySelectorAll('.card');
+
+
+
+
+
+
+
+
+
+
 
 function showModal(user) {
 
@@ -52,7 +70,7 @@ function showModal(user) {
 
   // Creating the modal content
 
-  const modalContent = document.createELement('div');
+  const modalContent = document.createElement('div');
   modalContent.className = 'modal';
 
   // Creating the close button
@@ -114,7 +132,7 @@ function showModal(user) {
 
   const modalAddress = document.createElement('p');
   modalAddress.className = 'modal-text';
-  modalAddress.textContent = user.location.street.number + ' ' + user.location.steet.name + ', ' + user.location.city + ', ' + user.location.state + ' ' + user.location.postcode;
+  modalAddress.textContent = user.location.street.number + ' ' + user.location.street.name + ', ' + user.location.city + ', ' + user.location.state + ' ' + user.location.postcode;
 
   // Creating the modal birthday
 
@@ -146,25 +164,5 @@ function showModal(user) {
 
   // Appending the modal container to the document body
 
-  gallery.insertAdjacentElement('afterend', modalContainer);
-
+  document.body.appendChild(modalContainer);
 }
-
-cards.forEach(function(card){
-
-  card.addEventListener('click', function() {
-
-    //Getting the user data associated with the clicked card
-
-    let user = card.dataset.user;
-    if(user){
-
-      user = JSON.parse(user);
-      showModal(user); // Displaying the modal window with the user data
-    }
-
-
-  })
-
-
-})
