@@ -36,3 +36,81 @@ function getUsers() {
 for (let i = 0; i < 12; i++) {
   getUsers();
 }
+
+
+
+
+const cards = document.querySelectorAll('.card');
+
+function showModal(user) {
+
+  //Creating the modal container
+
+  const modalContainer = document.createElement('div');
+  modalContainer.className = 'modal-container';
+
+
+  // Creating the modal content
+
+  const modalContent = document.createELement('div');
+  modalContent.className = 'modal';
+
+  // Creating the close button
+
+  const closeButton = document.createElement('button');
+  closeButton.type = 'button';
+  closeButton.id = 'modal-close-btn';
+  closeButton.className = 'modal-close-btn';
+  closeButton.innerHTML = '<strong>X</strong>';
+  closeButton.addEventListener('click', function(){
+
+    modalContainer.remove(); // Closing the modal window when the button is clicked
+
+  })
+
+
+  // Creating the modal info container
+
+  const modalInfoContainer = document.createElement('div');
+  modalInfoContainer.className = 'modal-info-container';
+
+  // Creating the modal image
+
+  const modalImg = document.createElement('img');
+  modalImg.className = 'modal-img';
+  modalImg.src = user.picture.medium;
+  modalImg.alt = 'profile picture';
+
+  // Creating the modal name
+
+  const modalName = document.createElement('h3');
+  modalName.id = 'name';
+  modalName.className = 'modal-name cap';
+  modalName.textContent = user.name.first + ' ' + user.name.last;
+
+
+  // Creating the modal email
+
+  const modalEmail = document.createElement('p');
+  modalEmail.className = 'modal-text';
+  modalEmail.textContent = user.email;
+
+
+  // Creating the modal city
+
+  const modalCity = document.createElement('p');
+  modalCity.className = 'modal-text cap';
+  modalCity.textContent = user.location.city;
+
+
+  // Creating the modal phone
+
+  const modalPhone = document.createElement('p');
+  modalPhone.className = 'modal-text';
+  modalPhone.textContent = user.phone;
+
+
+  // Creating the modal address
+
+
+}
