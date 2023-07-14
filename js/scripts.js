@@ -112,5 +112,41 @@ function showModal(user) {
 
   // Creating the modal address
 
+  const modalAddress = document.createElement('p');
+  modalAddress.className = 'modal-text';
+  modalAddress.textContent = user.location.street.number + ' ' + user.location.steet.name + ', ' + user.location.city + ', ' + user.location.state + ' ' + user.location.postcode;
+
+  // Creating the modal birthday
+
+  const modalBirthday = document.createElement('p');
+  modalBirthday.className = 'modal-text';
+  modalBirthday.textContent = 'Birthday: ' + user.dob.date.slice(0,10);
+
+  // Appending the elements to the modal info container
+
+  modalInfoContainer.appendChild(modalImg);
+  modalInfoContainer.appendChild(modalName);
+  modalInfoContainer.appendChild(modalEmail);
+  modalInfoContainer.appendChild(modalCity);
+  modalInfoContainer.appendChild(document.createElement('hr'));
+  modalInfoContainer.appendChild(modalPhone);
+  modalInfoContainer.appendChild(modalAddress);
+  modalInfoContainer.appendChild(modalBirthday);
+
+
+  // Appending elements to the modal content
+
+  modalContent.appendChild(closeButton);
+  modalContent.appendChild(modalInfoContainer);
+
+
+  // Appending elements to the modal container
+
+  modalContainer.appendChild(modalContent);
+
+  // Appending the modal container to the document body
+
+  gallery.insertAdjacentElement('afterend', modalContainer);
 
 }
+
