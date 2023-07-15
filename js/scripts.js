@@ -144,16 +144,6 @@ function showModal(user) {
 
 
 
-
-
-
-
-
-
-
-
-
-
   // Creating the close button
 
   const closeButton = document.createElement('button');
@@ -252,14 +242,14 @@ function showModal(user) {
       modalContainer.remove(); // Closing the modal window when the close button is clicked
     }  if(event.target.id === 'modal-prev'){
 
-      const currentIndex = users.findIndex((u) => u === user); // Getting the index of the current user
+      const currentIndex = users.findIndex((u) => u.name === user.name); // Getting the index of the current user
     const prevIndex = (currentIndex - 1 + users.length) % users.length; // Calculating the previous index
     const prevUser = users[prevIndex];
     showModal(prevUser);
 
     } else if (event.target.id === 'modal-next'){
 
-      const currentIndex = users.findIndex((u)=> u === user);
+      const currentIndex = users.findIndex((u)=> u.name === user.name);
       const nextIndex = (currentIndex + 1) % users.length;
       const nextUser = users[nextIndex];
       showModal(nextUser);
@@ -271,6 +261,7 @@ function showModal(user) {
 
 }
 
+// End of the showmodal function (it starts around line 100)
 
 
 
@@ -350,10 +341,6 @@ searchInput.addEventListener('input', function(event){
       }}
 
 });
-
-
-
-
 
 
 
