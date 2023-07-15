@@ -100,6 +100,13 @@ function fetchUsersAndCreateCards() {
 
 function showModal(user) {
 
+
+
+  const existingModal = document.querySelector('.modal-container');
+  if (existingModal) {
+    existingModal.remove(); // Remove the existing modal
+  }
+
   //Creating the modal container
 
   const modalContainer = document.createElement('div');
