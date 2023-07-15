@@ -224,39 +224,45 @@ function showModal(user) {
   // Appending elements to the modal content
 
   modalContent.appendChild(modalInfoContainer);
-  modalContent.appendChild(closeButton);
+
 
 
 
   // Appending elements to the modal container
 
   modalContainer.appendChild(modalContent);
+  modalContainer.appendChild(closeButton);
 
 
   // Appending the modal container to the document body
 
   document.body.appendChild(modalContainer);
 
-  modalContent.addEventListener('click', function(event) {
-    if (event.target.id === 'modal-close-btn') {
-      modalContainer.remove(); // Closing the modal window when the close button is clicked
-    }  if(event.target.id === 'modal-prev'){
+closeButton.addEventListener('click', function(event) {
+  const closeButtonClicked = event.target.closest('#modal-close-btn');
+  if (closeButtonClicked) {
+    const modalContainer = event.target.closest('.modal-container');
+    modalContainer.remove(); // Closing the modal window when the close button is clicked
+  }
+});
 
-      const currentIndex = users.findIndex((u) => u.name === user.name); // Getting the index of the current user
-    const prevIndex = (currentIndex - 1 + users.length) % users.length; // Calculating the previous index
+modalContent.addEventListener('click', function(event) {
+  const prevButtonClicked = event.target.id === 'modal-prev';
+  const nextButtonClicked = event.target.id === 'modal-next';
+
+  if (prevButtonClicked) {
+    const currentIndex = users.findIndex((u) => u.name === user.name);
+    const prevIndex = (currentIndex - 1 + users.length) % users.length;
     const prevUser = users[prevIndex];
     showModal(prevUser);
+  } else if (nextButtonClicked) {
+    const currentIndex = users.findIndex((u) => u.name === user.name);
+    const nextIndex = (currentIndex + 1) % users.length;
+    const nextUser = users[nextIndex];
+    showModal(nextUser);
+  }
+});
 
-    } else if (event.target.id === 'modal-next'){
-
-      const currentIndex = users.findIndex((u)=> u.name === user.name);
-      const nextIndex = (currentIndex + 1) % users.length;
-      const nextUser = users[nextIndex];
-      showModal(nextUser);
-
-
-    }
-  });
 
 
 }
