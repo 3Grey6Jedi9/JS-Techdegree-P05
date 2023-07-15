@@ -124,7 +124,7 @@ function showModal(user) {
 
   const modalPhone = document.createElement('p');
   modalPhone.className = 'modal-text';
-  modalPhone.textContent = user.phone;
+  modalPhone.textContent = formatPhoneNumber(user.phone)
 
 
   // Creating the modal address
@@ -164,4 +164,32 @@ function showModal(user) {
   // Appending the modal container to the document body
 
   document.body.appendChild(modalContainer);
+}
+
+
+
+function formatPhoneNumber(phoneNumber) {
+
+  // Removing all non-digit characters from the phone number
+
+  const digitsOnly = phoneNumber.replace(/\D/g, '');
+
+  // Extracting the area code (first 3 digits)
+
+  const areaCode = digitsOnly.slice(0,3);
+
+  // Extracting the next 3 digits
+
+  const nextThreeDigits = digitsOnly.slice(3,6);
+
+  // Extracting the last 4 digits
+
+  const lastFourDigits = digitsOnly.slice(6);
+
+  // Formating the phone number in the pattern (xxx) xxx-xxxx
+
+  const formattedPhoneNumber = `(${areaCode}) ${nextThreeDigits}-${lastFourDigits}`;
+
+  return formattedPhoneNumber
+
 }
