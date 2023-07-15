@@ -137,7 +137,7 @@ function showModal(user) {
 
   const modalBirthday = document.createElement('p');
   modalBirthday.className = 'modal-text';
-  modalBirthday.textContent = 'Birthday: ' + user.dob.date.slice(0,10);
+  modalBirthday.textContent = 'Birthday: ' + user.dob.date.slice(5,7)+'/'+user.dob.date.slice(8,10)+'/'+user.dob.date.slice(0,4);
 
   // Appending the elements to the modal info container
 
