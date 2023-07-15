@@ -1,11 +1,11 @@
-/* ===================================== 
+/* =====================================
    Public API Request
 ======================================== */
 
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
 * {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 html, body {
@@ -61,7 +61,7 @@ header h1 {
 }
 
 
-/* ===================================== 
+/* =====================================
    Gallery
 ======================================== */
 
@@ -74,7 +74,7 @@ header h1 {
     max-width: 1200px;
     margin: auto;
 }
-  
+
 .card {
     display: flex;
     flex-direction: row;
@@ -118,7 +118,7 @@ header h1 {
 }
 
 
-/* ===================================== 
+/* =====================================
    Modal
 ======================================== */
 
@@ -128,7 +128,7 @@ header h1 {
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0); /* Updated background to transparent */
 }
 
 .modal {
@@ -201,14 +201,14 @@ header h1 {
     background: rgba(0, 0, 0, 0.8);
     border-radius: 0.35em;
     transition: .4s ease-out;
-  }
-  
+}
 
-/* ===================================== 
+
+/* =====================================
    Media Queries
 ======================================== */
 
-/* ===================================== 
+/* =====================================
    Tablet
 ======================================== */
 
@@ -226,34 +226,4 @@ header h1 {
         text-align: left;
     }
 
-    .search-container {
-        margin-top: 25px;
-    }
-
-    .modal {
-        margin-top: 100px;
-    }
-}
-
-
-/* ===================================== 
-   Desktop
-   Hover styles on desktop 
-======================================== */
-
-@media (min-width: 1024px) {
-
-    .card:hover {
-        background: rgba(255, 255, 255, 1);
-        border: 1px solid rgba(50, 50, 50, 0.9);
-    }
-
-    .card:hover .card-text {
-        color: rgba(25, 25, 25, 1); 
-    }
-
-    .btn:hover {
-        background: rgba(255, 255, 255, 1);
-        color: rgba(25, 25, 25, 1); 
-    }
 }

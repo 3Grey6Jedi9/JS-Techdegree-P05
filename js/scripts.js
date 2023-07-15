@@ -234,19 +234,20 @@ function showModal(user) {
   // Appending elements to the modal content
 
   modalContent.appendChild(modalInfoContainer);
+  modalContent.appendChild(closeButton);
+
 
 
   // Appending elements to the modal container
 
   modalContainer.appendChild(modalContent);
-  modalContainer.appendChild(closeButton);
 
 
   // Appending the modal container to the document body
 
   document.body.appendChild(modalContainer);
 
-  modalContainer.addEventListener('click', function(event) {
+  modalContent.addEventListener('click', function(event) {
     if (event.target.id === 'modal-close-btn') {
       modalContainer.remove(); // Closing the modal window when the close button is clicked
     }  if(event.target.id === 'modal-prev'){
