@@ -1,52 +1,88 @@
 const gallery = document.getElementById('gallery');
 
+
 function getUsers() {
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://randomuser.me/api/', true);
 
-  xhr.onload = function() {
-    if (xhr.status === 200) {
-      var response = JSON.parse(xhr.responseText);
-      var user = response.results[0];
+  return fetch('https://randomuser.me/api/?nat=us')
+      .then(response => {
 
-      let HTML = `<div class="card">
-        <div class="card-img-container">
-          <img class="card-img" src=${user.picture.medium} alt="profile picture">
-        </div>
-        <div class="card-info-container">
-          <h3 id="name" class="card-name cap">${user.name.first} ${user.name.last}</h3>
-          <p class="card-text">${user.email}</p>
-          <p class="card-text cap">${user.location.city}, ${user.location.state}</p>
-        </div>
-      </div>`;
+        if (!response.ok) {
 
-      gallery.insertAdjacentHTML("beforeend", HTML);
+          throw new Error('Request failed. Status:', response.status);
 
-      const card = document.querySelector('.card:last-child');
-      const userCopy = { ...user }; // Creating a copy of the user object
+        }
+            return response.json();
 
-      card.addEventListener('click', function() {
-        showModal(userCopy);
+      })
+
+      .then(data => {
+
+        const user = data.results[0];
+        return user;
+
+      })
+
+      .catch(error => {
+
+        console.error('Request failed. Network error:', error);
+
+
+      })
+
+}
+
+
+function createCard(user) {
+
+
+  let HTML = `<div class="card">
+    <div class="card-img-container">
+      <img class="card-img" src=${user.picture.medium} alt="profile picture">
+    </div>
+    <div class="card-info-container">
+      <h3 id="name" class="card-name cap">${user.name.first} ${user.name.last}</h3>
+      <p class="card-text">${user.email}</p>
+      <p class="card-text cap">${user.location.city}, ${user.location.state}</p>
+    </div>
+  </div>`;
+
+
+  gallery.insertAdjacentHTML("beforeend", HTML);
+
+
+  const card = document.querySelector('.card:last-child');
+  const userCopy = {...user};
+
+  card.addEventListener('click', function() {
+
+    showModal(userCopy);
+
+  });
+
+}
+
+
+function fetchUsersAndCreateCards() {
+
+
+  const promises = [];
+  for (let i = 0; i < 12; i++) {
+
+    promises.push(getUsers());
+
+  }
+
+  Promise.all(promises)
+      .then(users => {
+        users.forEach(user => {
+
+          createCard(user);
+
+        });
+
       });
 
-
-    } else {
-      console.log('Request failed. Status:', xhr.status);
-    }
-  };
-
-  xhr.onerror = function() {
-    console.log('Request failed. Network error.');
-  };
-
-  xhr.send();
 }
-
-for (let i = 0; i < 12; i++) {
-  getUsers();
-}
-
-
 
 
 
@@ -168,6 +204,11 @@ function showModal(user) {
 
 
 
+
+
+
+
+
 function formatPhoneNumber(phoneNumber) {
 
   // Removing all non-digit characters from the phone number
@@ -195,6 +236,13 @@ function formatPhoneNumber(phoneNumber) {
 }
 
 
+
+
+
+
+
+
+
 // Configurating the search tool
 
 
@@ -206,6 +254,40 @@ const HTMLSearchForm = `<form action="#" method="get">
                         </form>`
 
 searchContainer.insertAdjacentHTML("beforeend", HTMLSearchForm);
+
+
+const searchInput = document.getElementById('search-input');
+const cardsContainer = document.getElementById('gallery');
+
+
+searchInput.addEventListener('input', function(event){
+
+    const searchItem = event.target.value.toLowerCase();
+    const cards = cardsContainer.getElementsByClassName('card');
+
+    for (let i = 0; i < cards.length; i++) {
+
+      const card = cards[i];
+      const nameElement = card.querySelector('.card-name');
+      const name = nameElement.textContent.toLowerCase();
+
+      if(name.includes(searchItem)) {
+        card.style.display = 'flex';
+
+    } else {
+
+        card.style.display = 'none';
+
+      }}
+
+});
+
+
+
+fetchUsersAndCreateCards();
+
+
+
 
 
 
