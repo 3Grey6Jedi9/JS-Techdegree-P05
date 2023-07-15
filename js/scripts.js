@@ -1,6 +1,10 @@
 const gallery = document.getElementById('gallery');
 
 
+let users = [];
+
+
+
 function getUsers() {
 
   return fetch('https://randomuser.me/api/?nat=us')
@@ -32,7 +36,7 @@ function getUsers() {
 }
 
 
-function createCard(user) {
+function createCard(user, index) {
 
 
   let HTML = `<div class="card">
@@ -73,14 +77,13 @@ function fetchUsersAndCreateCards() {
   }
 
   Promise.all(promises)
-      .then(users => {
-        users.forEach(user => {
+      .then(data => {
+  users = data; // Storing the users globally
+  data.forEach((user, index) => {
+    createCard(user, index); // Passing the index to createCard
+  });
+})
 
-          createCard(user);
-
-        });
-
-      });
 
 }
 
@@ -108,6 +111,49 @@ function showModal(user) {
   const modalContent = document.createElement('div');
   modalContent.className = 'modal';
 
+  // Creating the modal toggle container
+
+  const modalToggleContainer = document.createElement('div');
+  modalToggleContainer.className = 'modal-btn-container'
+
+  // Creating the previous button
+
+  const prevButton = document.createElement('button');
+  prevButton.type = 'button';
+  prevButton.id = 'modal-prev';
+  prevButton.className = 'modal-prev btn';
+  prevButton.textContent = 'Prev';
+
+  // Creating the next button
+
+  const nextButton = document.createElement('button');
+  nextButton.type = 'button';
+  nextButton.id = 'modal-next';
+  nextButton.className = 'modal-next btn';
+  nextButton.textContent = 'Next';
+
+  // Append the toggle buttons to the modal toggle container
+
+  modalToggleContainer.appendChild(prevButton);
+  modalToggleContainer.appendChild(nextButton);
+
+
+  // Append the modal toggle container to the modal content
+
+  modalContent.appendChild(modalToggleContainer);
+
+
+
+
+
+
+
+
+
+
+
+
+
   // Creating the close button
 
   const closeButton = document.createElement('button');
@@ -115,11 +161,9 @@ function showModal(user) {
   closeButton.id = 'modal-close-btn';
   closeButton.className = 'modal-close-btn';
   closeButton.innerHTML = '<strong>X</strong>';
-  closeButton.addEventListener('click', function(){
 
-    modalContainer.remove(); // Closing the modal window when the button is clicked
 
-  })
+
 
 
   // Creating the modal info container
@@ -189,17 +233,41 @@ function showModal(user) {
 
   // Appending elements to the modal content
 
-  modalContent.appendChild(closeButton);
   modalContent.appendChild(modalInfoContainer);
 
 
   // Appending elements to the modal container
 
   modalContainer.appendChild(modalContent);
+  modalContainer.appendChild(closeButton);
+
 
   // Appending the modal container to the document body
 
   document.body.appendChild(modalContainer);
+
+  modalContainer.addEventListener('click', function(event) {
+    if (event.target.id === 'modal-close-btn') {
+      modalContainer.remove(); // Closing the modal window when the close button is clicked
+    }  if(event.target.id === 'modal-prev'){
+
+      const currentIndex = users.findIndex((u) => u === user); // Getting the index of the current user
+    const prevIndex = (currentIndex - 1 + users.length) % users.length; // Calculating the previous index
+    const prevUser = users[prevIndex];
+    showModal(prevUser);
+
+    } else if (event.target.id === 'modal-next'){
+
+      const currentIndex = users.findIndex((u)=> u === user);
+      const nextIndex = (currentIndex + 1) % users.length;
+      const nextUser = users[nextIndex];
+      showModal(nextUser);
+
+
+    }
+  });
+
+
 }
 
 
@@ -281,6 +349,13 @@ searchInput.addEventListener('input', function(event){
       }}
 
 });
+
+
+
+
+
+
+
 
 
 
