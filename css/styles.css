@@ -136,7 +136,7 @@ header h1 {
     width: 95%;
     max-width: 420px;
     min-height: 415px;
-    margin: 10px auto auto;
+    margin: calc(5% + 10px) auto auto;
     padding-bottom: 15px;
     background: rgba(255, 255, 255, 1);
     border-radius: 0.25em;
