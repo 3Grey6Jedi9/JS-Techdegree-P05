@@ -128,7 +128,7 @@ header h1 {
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(0, 0, 0, 0); /* Updated background to transparent */
+    background: rgba(173, 216, 230, 0.5); /* Updated background to transparent */
 }
 
 .modal {
