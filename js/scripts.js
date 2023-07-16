@@ -1,9 +1,14 @@
 const gallery = document.getElementById('gallery');
 
 
-let users = [];
+let users = []; // I define users as a global variable so I can play the index of their elements.
 
 
+
+
+// I define the function getUsers to fetch all the data from the API. I'll use promises
+// so nothing will happen until I get the data and create the cards... Avoiudidng that way to asign
+// event listeners to cards that do not exist yet.
 
 function getUsers() {
 
@@ -35,6 +40,11 @@ function getUsers() {
 
 }
 
+// End of getUsers function
+
+
+
+// createCard: This function creates all the cards once I have fetched the information.
 
 function createCard(user, index) {
 
@@ -66,17 +76,22 @@ function createCard(user, index) {
 }
 
 
+
+
+
+// fetchUsersAndCreateCards: This function call all the promises and create the cards.
+
 function fetchUsersAndCreateCards() {
 
 
-  const promises = [];
+  const promises = []; // First I create all the promises, ready to access the properties.
   for (let i = 0; i < 12; i++) {
 
     promises.push(getUsers());
 
   }
 
-  Promise.all(promises)
+  Promise.all(promises) // Then I call them all and I pass the proper data into createCard so I create all the cards with one called.
       .then(data => {
   users = data; // Storing the users globally
   data.forEach((user, index) => {
@@ -97,6 +112,7 @@ function fetchUsersAndCreateCards() {
 
 
 
+// showModal: This function will create the modal window, as well as the action associate with it.
 
 function showModal(user) {
 
@@ -104,7 +120,7 @@ function showModal(user) {
 
   const existingModal = document.querySelector('.modal-container');
   if (existingModal) {
-    existingModal.remove(); // Remove the existing modal
+    existingModal.remove(); // Removing the existing modal so I do not overlap them
   }
 
   //Creating the modal container
@@ -145,7 +161,7 @@ function showModal(user) {
   modalToggleContainer.appendChild(nextButton);
 
 
-  // Append the modal toggle container to the modal content
+  // Appending the modal toggle container to the modal content
 
   modalContent.appendChild(modalToggleContainer);
 
@@ -245,6 +261,8 @@ function showModal(user) {
 
   document.body.appendChild(modalContainer);
 
+  // Giving action to the buttons
+
 closeButton.addEventListener('click', function(event) {
   const closeButtonClicked = event.target.closest('#modal-close-btn');
   if (closeButtonClicked) {
@@ -274,7 +292,7 @@ modalContent.addEventListener('click', function(event) {
 
 }
 
-// End of the showmodal function (it starts around line 100)
+// End of the showmodal function (it starts around line 115)
 
 
 
@@ -359,6 +377,7 @@ searchInput.addEventListener('input', function(event){
 
 
 
+// Calling all to execute the script
 
 fetchUsersAndCreateCards();
 
