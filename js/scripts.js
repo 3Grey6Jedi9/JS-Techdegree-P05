@@ -229,7 +229,7 @@ function showModal(user) {
   // Appending elements to the modal container
 
   modalContainer.appendChild(modalContent);
-  modalContainer.appendChild(closeButton);
+  modalContent.appendChild(closeButton);
 
 
   // Appending the modal container to the document body
