@@ -6,39 +6,25 @@ let users = []; // I define users as a global variable so I can play the index o
 
 
 
-// I define the function getUsers to fetch all the data from the API. I'll use promises
-// so nothing will happen until I get the data and create the cards... Avoiudidng that way to asign
-// event listeners to cards that do not exist yet.
+// I define the function getUsers to fetch all the data from the API.
 
 function getUsers() {
-
-  return fetch('https://randomuser.me/api/?nat=us')
-      .then(response => {
-
-        if (!response.ok) {
-
-          throw new Error('Request failed. Status:', response.status);
-
-        }
-            return response.json();
-
-      })
-
-      .then(data => {
-
-        const user = data.results[0];
-        return user;
-
-      })
-
-      .catch(error => {
-
-        console.error('Request failed. Network error:', error);
-
-
-      })
-
+  return fetch('https://randomuser.me/api/?results=12&nat=us')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Request failed. Status:', response.status);
+      }
+      return response.json();
+    })
+    .then(data => {
+      const users = data.results;
+      return users;
+    })
+    .catch(error => {
+      console.error('Request failed. Network error:', error);
+    });
 }
+
 
 // End of getUsers function
 
@@ -82,24 +68,13 @@ function createCard(user, index) {
 // fetchUsersAndCreateCards: This function call all the promises and create the cards.
 
 function fetchUsersAndCreateCards() {
-
-
-  const promises = []; // First I create all the promises, ready to access the properties.
-  for (let i = 0; i < 12; i++) {
-
-    promises.push(getUsers());
-
-  }
-
-  Promise.all(promises) // Then I call them all and I pass the proper data into createCard so I create all the cards with one called.
-      .then(data => {
-  users = data; // Storing the users globally
-  data.forEach((user, index) => {
-    createCard(user, index); // Passing the index to createCard
-  });
-})
-
-
+  getUsers()
+    .then(data => {
+      users = data; // Storing the users globally
+      data.forEach((user, index) => {
+        createCard(user, index); // Passing the index to createCard
+      });
+    });
 }
 
 
